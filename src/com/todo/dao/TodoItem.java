@@ -1,18 +1,28 @@
 package com.todo.dao;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TodoItem {
+	private String category;
     private String title;
     private String desc;
+    
     private String current_date;
+    private String due_date;
 
 
-    public TodoItem(String title, String desc){
+    public TodoItem(String category,String title, String desc){
+    	this.category =category;
         this.title=title;
         this.desc=desc;
-        this.current_date=new Date().toString();
+        SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd kk:mm:ss");
+        this.current_date=f.format(new Date());
+        this.due_date = "";
     }
+    
+    
+    
     
     public String getTitle() {
         return title;
@@ -34,11 +44,32 @@ public class TodoItem {
         return current_date;
     }
 
+    public String getDue_date() {
+        return due_date;
+    }
+    
     public void setCurrent_date(String current_date) {
         this.current_date = current_date;
     }
+    public void setDue_date(String due_date) {
+        this.due_date = due_date;
+    }
     
     public String toSaveString() {
-    	return title + "##" + desc +"##" + current_date+"\n";
+    	return category+"##"+title + "##" + desc +"##" + current_date+"##"+due_date+"\n";
     }
+
+
+
+
+	public String getCategory() {
+		return category;
+	}
+
+
+
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 }

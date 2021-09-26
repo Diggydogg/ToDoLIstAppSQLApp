@@ -2,6 +2,7 @@ package com.todo;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 import com.todo.dao.TodoList;
 import com.todo.menu.Menu;
@@ -24,7 +25,15 @@ public class TodoMain {
 		do {
 			Menu.prompt();
 			isList = false;
-			String choice = sc.next();
+			//tokenizer 
+			String command = sc.nextLine();
+			
+			StringTokenizer st= new StringTokenizer(command," ");
+			String choice = st.nextToken().trim();
+			//System.out.println(choice);
+			//String choice = sc.next();
+			
+			
 			switch (choice) {
 
 			case "add":
@@ -74,6 +83,13 @@ public class TodoMain {
 			case "help":
 				Menu.displaymenu();
 				Menu.prompt();
+				break;
+				
+			case "find":
+				String keyword = st.nextToken();
+				TodoUtil.find(l,keyword);
+				break;
+				
 			default:
 				System.out.println("please enter one of the above mentioned command");
 				break;

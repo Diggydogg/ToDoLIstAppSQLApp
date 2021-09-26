@@ -11,7 +11,8 @@ public class Menu {
         System.out.println("5. sort the list by name ( ls_name_asc ) 제목순 정렬 ");
         System.out.println("6. sort the list by name ( ls_name_desc ) 제목순 역정렬 ");
         System.out.println("7. sort the list by date ( ls_date ) 날짜순 정렬 ");
-        System.out.println("8. exit (Or press escape key to exit) 종료 ");
+        System.out.println("8. find the item by keyword ( find <keyword> ) 키워드로 찾기 ");
+        System.out.println("9. exit (Or press escape key to exit) 종료 ");
         System.out.println("Enter your choice >");
     }
     public static void prompt() {
