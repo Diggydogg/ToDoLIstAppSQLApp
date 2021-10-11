@@ -1,0 +1,10 @@
+banana##yummy yummy##Thu Sep 23 19:10:44 KST 2021
+코코아##카페에서 코코아 타먹기!##Thu Sep 23 19:39:38 KST 2021
+밥고##밥 회식##Thu Sep 23 19:57:41 KST 2021
+coffee##go Cafe with friends##Thu Sep 23 19:58:11 KST 2021
+gym##hit it##Thu Sep 23 19:58:29 KST 2021
+sleep##hit it##Thu Sep 23 19:58:45 KST 2021
+spa##getti##Thu Sep 23 19:59:04 KST 2021
+homework##skippi##Thu Sep 23 19:59:43 KST 2021
+walk##tokit##Thu Sep 23 19:59:58 KST 2021
+drivin##wo concs##Thu Sep 23 20:00:25 KST 2021

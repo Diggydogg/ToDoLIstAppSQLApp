@@ -1,10 +1,1 @@
-fruit##watermelon##get watermelon from grocerystore##2021/09/26 19:57:51##2021/01/11
-meeting##babgo##meeting with friends##2021/09/26 20:00:05##2021/09/11
-workout##gym##go gym everynight ##2021/09/26 20:02:00##2021/12/12
-assignment##Homework##do weekly homework##2021/09/26 20:02:38##2021/10/14
-entertainment##reading##reading book for chiing##2021/09/26 20:03:09##2021.11.10
-assignments##calc2##study mathmatics##2021/09/26 20:04:06##2021/100/29
-sleep##sleep##sleepin is good fo yo health##2021/09/26 20:04:51##2021/11/30
-vacation##visit##visit friends and family ##2021/09/26 20:05:23##2021/12/22
-entertainment##gaming##play video game with friends##2021/09/26 20:05:58##2021/09/11
-cafe##coffee##go cafe and chillin##2021/09/26 20:06:38##2021/11/23
+과제##2주차과제하기##운영체제##2021/09/15##2021/09/01 10:00:01

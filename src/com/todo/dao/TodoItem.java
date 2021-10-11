@@ -10,6 +10,7 @@ public class TodoItem {
     
     private String current_date;
     private String due_date;
+	private int id;
 
 
     public TodoItem(String category,String title, String desc){
@@ -21,7 +22,14 @@ public class TodoItem {
         this.due_date = "";
     }
     
-    
+    public TodoItem(String title,String desc, String category,String due_date){
+    	this.category =category;
+        this.title=title;
+        this.desc=desc;
+        SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd kk:mm:ss");
+        this.current_date=f.format(new Date());
+        this.due_date =due_date;
+    }
     
     
     public String getTitle() {
@@ -59,7 +67,9 @@ public class TodoItem {
     	return category+"##"+title + "##" + desc +"##" + current_date+"##"+due_date+"\n";
     }
 
-
+    public String toString() {
+    	return id+"["+category+"] "+title + " - " + desc +" - " + current_date+" - "+due_date+"\n";
+    }
 
 
 	public String getCategory() {
@@ -71,5 +81,19 @@ public class TodoItem {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+
+
+
+	public void setId(int id) {
+		this.id=id;
+		// TODO Auto-generated method stub
+		
+	}
+
+	public int getId() {
+		// TODO Auto-generated method stub
+		return id;
 	}
 }

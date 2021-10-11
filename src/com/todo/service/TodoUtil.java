@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.*;
 
 import com.todo.dao.TodoItem;
@@ -44,9 +46,16 @@ public class TodoUtil {
 		System.out.println("enter the due date");
 		due_date = sc.nextLine();
 		
-		TodoItem t = new TodoItem(category,title, desc);
+		TodoItem t = new TodoItem(title,desc,category,due_date);
 		t.setDue_date(due_date);
-		list.addItem(t);
+		
+		//for debug
+		
+		System.out.println(t.getTitle()+t.getCategory()+t.getDesc()+t.getCurrent_date()+t.getDue_date());
+		//
+		
+		if (list.addItem(t)>0)
+			System.out.println("추가되었습니다.");
 		
 	}
 
@@ -63,13 +72,16 @@ public class TodoUtil {
 				+ "\n");
 		
 		//String title = sc.next();
-		int number =sc.nextInt(); 
+		int index =sc.nextInt(); 
+		
+		if (l.deleteItem(index)>0)
+			System.out.println("삭제되었습니.");
 		
 		
-		
+		/*
 		for (TodoItem item : l.getList()) {
 			//if (title.equals(item.getTitle())) {
-			if (number==l.indexOf(item)) {
+			if (index==l.indexOf(item)) {
 				
 				//System.out.println(l.indexOf(item)+". ["+item.getCategory()+"] "+"Item Title: " + item.getTitle() + "  Item Description:  " + item.getDesc() +" "+item.getCurrent_date());
 				System.out.println(l.indexOf(item)+". ["+item.getCategory()+"] "+"Item Title: " + item.getTitle() + "  Item Description:  " + item.getDesc() +" "+item.getDue_date()+" "+item.getCurrent_date());
@@ -82,7 +94,7 @@ public class TodoUtil {
 				}
 				break;
 			}
-		}
+		}*/
 	}
 
 
@@ -96,7 +108,7 @@ public class TodoUtil {
 				+ "enter the number of the item you want to update\n"
 				+ "\n");
 		//String title = sc.nextLine().trim();
-		int number = sc.nextInt();
+		int index = sc.nextInt();
 		//for emptying buffer
 		
 		sc.nextLine();
@@ -105,10 +117,10 @@ public class TodoUtil {
 			System.out.println("title doesn't exist");
 			return;
 		}
-		*/
+		
 		boolean found = false;
 		for (TodoItem item : l.getList()) {
-			if (number ==l.indexOf(item)) {
+			if (index ==l.indexOf(item)) {
 				found = true;
 			}
 		}
@@ -116,7 +128,7 @@ public class TodoUtil {
 			System.out.println("number of item does not exist in the List");
 			return;
 		}
-		
+		*/
 		
 		System.out.println("enter the new title of the item");
 		//String new_title = sc.nextLine().trim();
@@ -145,7 +157,7 @@ public class TodoUtil {
 		String due_date = sc.nextLine();
 		
 		
-		
+		/*
 		for (TodoItem item : l.getList()) {
 			if (number == l.indexOf(item)) {
 				l.deleteItem(item);
@@ -155,11 +167,22 @@ public class TodoUtil {
 				l.addItem(t);
 				System.out.println("item updated");
 			}
+		}*/
+		TodoItem t = new TodoItem(new_title,new_description,category,due_date);
+		t.setId(index);
+		if(l.updateItem(t)>0) {
+			System.out.println("수정되었습니다!");
 		}
-
+		
+		
 	}
-
-	public static void listAll(TodoList l) {
+	
+	
+	
+	
+	
+	public static void listAll1(TodoList l) {
+		/*
 		int count  =0;
 		for (TodoItem item:l.getList()) {
 			count++;
@@ -171,7 +194,13 @@ public class TodoUtil {
 			//System.out.println(l.indexOf(item)+". ["+item.getCategory()+"] "+"Item Title: " + item.getTitle() + "  Item Description:  " + item.getDesc() +" "+item.getCurrent_date());
 			System.out.println(l.indexOf(item)+". ["+item.getCategory()+"] "+"Item Title: " + item.getTitle() + "  Item Description:  " + item.getDesc() +" "+item.getDue_date()+" "+item.getCurrent_date());
 			
+		}*/
+		System.out.printf("[전체목록, 총 %d 개]\n", l.getCount());
+		for (TodoItem item : l.getList()) {
+			//System.out.println(item.toString());
+			System.out.println(item.toString());
 		}
+		
 	}
 	
 	
@@ -235,6 +264,51 @@ public class TodoUtil {
 				
 			}
 		}
+	}
+
+	public static void findList(TodoList l, String keyword) {
+		// debug
+		
+		System.out.println("keyword : "+ keyword);
+		
+		int count=0;
+		for(TodoItem item:l.getList(keyword)) {
+			System.out.println(item.toString());
+			count++;
+		}System.out.printf("총 %d개의 항목을 찾았습니다.\n", count);
+			
+		
+		
+	}
+
+	public static void listCateAll(TodoList l) {
+		// TODO Auto-generated method stub
+		int count =0;
+		for (String item:l.getCategories()) {
+			System.out.print(item+" ");
+			count++;
+		}
+		System.out.printf("\n총 %d 개의 카테고리가 등록되어 있습니다.\n ",count);
+	}
+
+	public static void findCateList(TodoList l, String cate) {
+		// TODO Auto-generated method stub
+		
+		int count =0;
+		for (TodoItem item:l.getListCategory(cate)) {
+			System.out.println(item.toString());
+			count++;
+		}
+		System.out.printf("\n총 %d 개의 항목을 찾았습니다.\n ",count);
+	}
+
+	public static void listAll(TodoList l, String orderby, int ordering) {
+		// TODO Auto-generated method stub
+		System.out.printf("\n[전체 목록 총 %d개]\n ",l.getCount());
+		for(TodoItem item:l.getOrderedList(orderby,ordering)) {
+			System.out.println(item.toString());
+		}
+		
 	}
 	
 }
