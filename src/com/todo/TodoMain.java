@@ -14,7 +14,7 @@ public class TodoMain {
 	
 		Scanner sc = new Scanner(System.in);
 		TodoList l = new TodoList();
-		l.importData("todolist.txt");
+		//l.importData("todolist.txt");
 		boolean isList = false;
 		boolean quit = false;
 		
@@ -43,6 +43,8 @@ public class TodoMain {
 				break;
 			
 			case "del":
+				
+				
 				System.out.println("항목 삭제 진행 >>>");
 				TodoUtil.deleteItem(l);
 				break;
@@ -54,7 +56,7 @@ public class TodoMain {
 				
 			case "ls":
 				System.out.println("항목 전체 보기 진행 >>>");
-				TodoUtil.listAll1(l);
+				TodoUtil.listAll(l);
 				break;
 
 			case "ls_name_asc":
@@ -113,7 +115,38 @@ public class TodoMain {
 			case "ls_name" :
 				System.out.println("제묵순으로 정렬하였습니다.");
 				TodoUtil.listAll(l,"title",1);
+				break;
+				
+			case "comp" :
+				//index
+				
+				// multi
+				while(sc.hasNextInt()) {
+					//System.out.println(" 1 ");
+					
+					
+					int index =sc.nextInt();
+					TodoUtil.completeItem(l, index);
+					System.out.println(index+" item has completed! (type any char to stop the command!)");
+					//if(!sc.hasNextInt()) break;
+				}
+				//int index =sc.nextInt();
+				
+				//TodoUtil.completeItem(l, index);
+				sc.next();
+				
+				
+				
+				break;
+			case "ls_comp":
+				TodoUtil.listAll(l,1);
+				break;
 			
+			// 완료 않된것 찾기
+			case "not_comp":
+				TodoUtil.listAll(l,0);
+				break;
+				
 			default:
 				System.out.println("please enter one of the above mentioned command");
 				break;
@@ -121,6 +154,6 @@ public class TodoMain {
 			
 			if(isList) l.listAll();
 		} while (!quit);
-		//TodoUtil.saveList(l, "todolist.txt");
+		TodoUtil.saveList(l, "todolist.txt");
 	}
 }

@@ -11,7 +11,11 @@ public class TodoItem {
     private String current_date;
     private String due_date;
 	private int id;
-
+	private int is_completed;
+	
+	private int process;
+	
+	private int important_level;
 
     public TodoItem(String category,String title, String desc){
     	this.category =category;
@@ -20,6 +24,7 @@ public class TodoItem {
         SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd kk:mm:ss");
         this.current_date=f.format(new Date());
         this.due_date = "";
+        
     }
     
     public TodoItem(String title,String desc, String category,String due_date){
@@ -29,6 +34,7 @@ public class TodoItem {
         SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd kk:mm:ss");
         this.current_date=f.format(new Date());
         this.due_date =due_date;
+        
     }
     
     
@@ -64,11 +70,11 @@ public class TodoItem {
     }
     
     public String toSaveString() {
-    	return category+"##"+title + "##" + desc +"##" + current_date+"##"+due_date+"\n";
+    	return id+"##"+important_level+"##"+category+"##"+title + "##"+is_completed+"##" +process+"##"+ desc +"##" + current_date+"##"+due_date+"\n";
     }
 
     public String toString() {
-    	return id+"["+category+"] "+title + " - " + desc +" - " + current_date+" - "+due_date+"\n";
+    	return id+stars() +"["+category+"] " +title   +check()+" - " + process()+ desc +" - " + current_date+" - "+due_date+"\n";
     }
 
 
@@ -95,5 +101,53 @@ public class TodoItem {
 	public int getId() {
 		// TODO Auto-generated method stub
 		return id;
+	}
+
+	public int getIs_completed() {
+		return is_completed;
+	}
+
+	public void setIs_completed(int is_completed) {
+		this.is_completed = is_completed;
+	}
+	public String check() {
+		if (this.is_completed==1) {
+			return " [v]";
+		}
+		else return " [ ]";
+	}
+
+	public int getProcess() {
+		return process;
+	}
+
+	public void setProcess(int process) {
+		this.process = process;
+	}
+
+	public int getImportant_level() {
+		return important_level;
+	}
+
+	public void setImportant_level(int important_level) {
+		this.important_level = important_level;
+	}
+	
+	
+	public String process() {
+		if (this.is_completed!=1) {
+			return " current process: "+getProcess()+" - ";
+		}
+		return " -  ";
+	}
+	
+	public String stars() {
+		String stars="";
+		int il= getImportant_level(); 
+		//System.out.print(important_level);
+		for(int i=0;i<il;i++) {
+			stars+="*";
+		}
+		return " [ "+stars+" ] ";
 	}
 }

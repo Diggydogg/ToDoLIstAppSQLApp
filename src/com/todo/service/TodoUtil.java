@@ -46,14 +46,32 @@ public class TodoUtil {
 		System.out.println("enter the due date");
 		due_date = sc.nextLine();
 		
+		
+		System.out.println("Set Importancy in rate of 1 to 4 :");
+		int important_level = sc.nextInt();
+		
 		TodoItem t = new TodoItem(title,desc,category,due_date);
 		t.setDue_date(due_date);
+		t.setImportant_level(important_level);
+		
+		
+		System.out.println("Is it completed? (Y/N)");
+		char complete = sc.nextLine().charAt(0);
+		if (complete=='y'||complete=='Y') {
+			t.setIs_completed(1);
+			t.setProcess(100);
+		}
+		else {
+			System.out.println("how much it has done? enter the process percentage % (0 - 99)");
+			int process = sc.nextInt();
+			t.setProcess(process);
+		}
 		
 		//for debug
 		
-		System.out.println(t.getTitle()+t.getCategory()+t.getDesc()+t.getCurrent_date()+t.getDue_date());
+		//System.out.println(t.getTitle()+t.check()+t.getCategory()+t.getDesc()+t.getCurrent_date()+t.getDue_date());
 		//
-		
+		System.out.println(t.toString());
 		if (list.addItem(t)>0)
 			System.out.println("추가되었습니다.");
 		
@@ -70,14 +88,19 @@ public class TodoUtil {
 				//+ "enter the title of item to remove\n"
 				+ "enter the number of item to remove\n"
 				+ "\n");
+		System.out.println("to stop the command, type any char ");
 		
-		//String title = sc.next();
-		int index =sc.nextInt(); 
-		
-		if (l.deleteItem(index)>0)
-			System.out.println("삭제되었습니.");
-		
-		
+		while(sc.hasNextInt()) {
+			//String title = sc.next();
+			int index =sc.nextInt(); 
+			
+			if (l.deleteItem(index)>0)
+				System.out.println(index+ " 번 항목이 삭제되었습니다.");
+			else {
+				System.out.println(index+ " 번 항목이 존재하지 않습니다.");
+			}
+			
+		}
 		/*
 		for (TodoItem item : l.getList()) {
 			//if (title.equals(item.getTitle())) {
@@ -157,6 +180,13 @@ public class TodoUtil {
 		String due_date = sc.nextLine();
 		
 		
+		System.out.println("Set Importancy in rate of 1 to 4 :");
+		int important_level = sc.nextInt();
+		
+		
+		
+		
+		
 		/*
 		for (TodoItem item : l.getList()) {
 			if (number == l.indexOf(item)) {
@@ -170,6 +200,19 @@ public class TodoUtil {
 		}*/
 		TodoItem t = new TodoItem(new_title,new_description,category,due_date);
 		t.setId(index);
+		t.setImportant_level(important_level);
+		System.out.println("Is it completed? (Y/N)");
+		char complete = sc.nextLine().charAt(0);
+		if (complete=='y'||complete=='Y') {
+			t.setIs_completed(1);
+		}
+		else {
+			System.out.println("how much it has done? enter the process percentage % (0 - 99)");
+			int process = sc.nextInt();
+			t.setProcess(process);
+		}
+		
+		
 		if(l.updateItem(t)>0) {
 			System.out.println("수정되었습니다!");
 		}
@@ -181,7 +224,7 @@ public class TodoUtil {
 	
 	
 	
-	public static void listAll1(TodoList l) {
+	public static void listAll(TodoList l) {
 		/*
 		int count  =0;
 		for (TodoItem item:l.getList()) {
@@ -211,7 +254,7 @@ public class TodoUtil {
 		try {
 			Writer w = new FileWriter(filename);
 			for (TodoItem item : l.getList()) {
-				//item.toSaveString();
+				item.toSaveString();
 				w.write(item.toSaveString());
 			}
 			w.close();
@@ -230,14 +273,19 @@ public class TodoUtil {
 			String oneline;
 			while((oneline = br.readLine())!=null) {
 				StringTokenizer st= new StringTokenizer(oneline,"##");
+				int id = Integer.parseInt(st.nextToken());
+				int important_level = Integer.parseInt(st.nextToken());
 				String category = st.nextToken();
 				String title =st.nextToken();
+				int is_completed =Integer.parseInt(st.nextToken());
 				String desc = st.nextToken();
 				
 				String current_date = st.nextToken();
 				String due_date = st.nextToken();
 				TodoItem t = new TodoItem(category,title,desc);
-				
+				t.setId(id);
+				t.setImportant_level(important_level);
+				t.setIs_completed(is_completed);
 				t.setCurrent_date(current_date);
 				t.setDue_date(due_date);
 				l.addItem(t);
@@ -260,8 +308,8 @@ public class TodoUtil {
 		
 		for (TodoItem item : l.getList()) {
 			if (item.getTitle().contains(keyword)||item.getDesc().contains(keyword)) {
-				System.out.println(l.indexOf(item)+". ["+item.getCategory()+"] "+"Item Title: " + item.getTitle() + "  Item Description:  " + item.getDesc() +" "+item.getDue_date()+" "+item.getCurrent_date());
-				
+				//System.out.println(l.indexOf(item)+". ["+item.getCategory()+"] "+"Item Title: " + item.getTitle() + "  Item Description:  " + item.getDesc() +" "+item.getDue_date()+" "+item.getCurrent_date());
+				System.out.println(item.toString());
 			}
 		}
 	}
@@ -309,6 +357,27 @@ public class TodoUtil {
 			System.out.println(item.toString());
 		}
 		
+	}
+
+	public static void completeItem(TodoList l, int index) {
+		// TODO Auto-generated method stub
+		// find id with index
+		l.completeItem(index);
+		
+	}
+	
+	public static void listAll(TodoList l,int completed) {
+		// TODO Auto-generated method stub
+		//System.out.printf("\n[전체 목록 총 %d개]\n ",l.getCount());
+		int count =0;
+		for(TodoItem item:l.getList(completed)) {
+			System.out.println(item.toString());
+			count++;
+		}
+		
+		
+		if (completed ==1)System.out.printf("\n[총 %d개 항목이 완료 되었습니다.]\n ",count);
+		else System.out.printf("\n[총 %d개 항목이 미완료 되었습니다.]\n ",count);
 	}
 	
 }
